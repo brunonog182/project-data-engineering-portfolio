@@ -1,24 +1,67 @@
-# 🛍️ Sales Data Pipeline
+🚀 End-to-End Sales Data Pipeline for Analytics
+                
+## 🎯 Business Context
 
-> A Data Engineering project automating the ingestion, transformation, and visualization of e-commerce sales data.
+This project reflects real-world data engineering challenges, including data quality, reproducibility, and scalable pipeline design.
 
+The goal is to enable:
+
+- Sales performance monitoring
+- Product-level analysis
+- Data-driven decision making
+- A centralized and reliable data source (Single Source of Truth)
+
+## 💡 Key Highlights
+
+- End-to-end data pipeline (ingestion → transformation → visualization)
+- Designed with scalability and reproducibility in mind
+- Strong focus on data quality and consistency
+- Built using modern data engineering practices
+
+## 🧠 Data Governance Considerations
+
+- Ensures consistency across multiple data sources
+- Supports a Single Source of Truth approach
+- Prepares the foundation for Master Data Management (MDM)
+- Improves data reliability for business decision-making
+  
 ---
 
-## 🏗️ Project Architecture
+## 🏗️ Data Architecture
 
-This pipeline follows an **ELT/ETL** pattern using containerized services:
+The pipeline follows a layered architecture:
 
-| Stage | Description | Technology |
-| --- | --- | --- |
-| **Extraction** | Reading data from Excel/CSV source files | Python, Pandas |
-| **Transformation** | Cleaning and processing data | Python, Pandas |
-| **Loading** | Inserting structured data into relational database | PostgreSQL |
-| **Visualization** | Interactive dashboards for business insights | Power BI |
+- **Raw Layer**: Source Excel/CSV files
+- **Staging Layer**: Initial cleaned data
+- **Curated Layer**: Structured tables in PostgreSQL
+- **Analytics Layer**: Power BI dashboards
+
+## 🔄 Pipeline Stages
+
+| Stage          | Description                                      | Technology        |
+|----------------|--------------------------------------------------|------------------|
+| Extraction     | Reading data from Excel/CSV source files         | Python, Pandas   |
+| Transformation | Cleaning and processing data                     | Python, Pandas   |
+| Loading        | Inserting structured data into PostgreSQL        | PostgreSQL       |
+| Visualization  | Interactive dashboards for business insights     | Power BI         |
+
+## 📊 Dashboard Preview
 
 ![Dashboard Preview](dashboard/print-dashboard-1.png)
 
 ---
 
+## ⚙️ Pipeline Features
+
+- Data ingestion from heterogeneous sources
+- Data cleaning and standardization
+- Idempotent load process
+- Environment-based configuration
+- Containerized execution
+- Modular ETL design
+- Reproducible local environment using Docker
+  
+---
 ## 🛠️ Tech Stack
 
 - **Language:** Python 3.8+
@@ -27,6 +70,37 @@ This pipeline follows an **ELT/ETL** pattern using containerized services:
 - **BI Tool:** Microsoft Power BI
 - **Libraries:** pandas, psycopg2, openpyxl, python-dotenv
 
+---
+## 🧩 Data Model
+
+The database follows a simplified analytical model:
+
+- **produtos**: product-level information
+- Future improvements include evolving the model into a Star Schema:
+    - fact_sales
+    - dim_products
+    - dim_date
+
+This structure allows efficient querying and supports BI tools.
+
+## ✅ Data Quality Checks
+
+- Null value handling
+- Data type validation
+- Duplicate removal
+- Schema enforcement before loading
+
+---
+
+## 📊 Business Insights (Power BI)
+
+The dashboard provides:
+
+- Revenue trends over time
+- Top-performing products
+- Sales distribution by category
+- Key KPIs (total revenue, average ticket, sales volume)
+  
 ---
 
 ## 📂 Project Structure
@@ -87,12 +161,12 @@ Install dependencies and execute the script:
 
 ## 🔐 Security Best Practices
 
-| Practice | Implementation |
-| --- | --- |
-| **Secrets Management** | Credentials managed via environment variables |
-| **Version Control** | Sensitive files ignored via `.gitignore` |
-| **Database Access** | Non-root user with restricted permissions |
-| **Network Security** | PostgreSQL port exposed only to localhost |
+| Practice           | Implementation                                     |
+|------------------|------------------------------------------------------|
+| Secrets Management | Credentials managed via environment variables      |
+| Version Control    | Sensitive files ignored via .gitignore             |
+| Database Access    | Non-root user with restricted permissions          |
+| Network Security   | PostgreSQL exposed only to localhost               |
 
 ---
 
@@ -108,6 +182,16 @@ Query inserted data:
 
     SELECT COUNT(*) FROM produtos;
     SELECT * FROM produtos LIMIT 10;
+
+---
+
+## 🚀 Future Improvements
+
+- Incremental data loading
+- Data warehouse modeling (Star Schema)
+- Workflow orchestration with Apache Airflow
+- Data quality monitoring (Great Expectations)
+- Cloud deployment (AWS/GCP)
 
 ---
 
