@@ -1,0 +1,13 @@
+services:
+  postgres:
+    image: postgres:16  # ← Adicione ":16" para travar na versão 16
+    container_name: banco-bi
+    env_file:
+      - .env
+    ports:
+      - "127.0.0.1:porta:porta"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data  # ← Mantém assim para v16
+
+volumes:
+  postgres_data:
