@@ -64,7 +64,7 @@ The pipeline follows a layered architecture:
 
 ## 📊 Dashboard Preview
 
-![Dashboard Preview](dashboard/print-dashboard-1.png)
+![Dashboard Preview](dashboard/Dashboard.png)
 
 ---
 
