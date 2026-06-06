@@ -65,7 +65,6 @@ The pipeline follows a layered architecture:
 
 ![Dashboard Preview](dashboard/Dashboard.png)
 
-> Interactive version: [dashboard/sales_dashboard_preview.html](dashboard/sales_dashboard_preview.html)
 
 ---
 
