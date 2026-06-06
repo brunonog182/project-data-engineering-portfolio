@@ -1,0 +1,13 @@
+services:
+  postgres:
+    image: postgres:16  # ← Adicione ":16" para travar na versão 16
+    container_name: powerbi-postgres
+    env_file:
+      - .env
+    ports:
+      - "127.0.0.1:5433:5433"  # ← Mapeia para a porta 5433 no host
+    volumes:
+      - postgres_data:/var/lib/postgresql/data  # ← Mantém assim para v16
+
+volumes:
+  postgres_data:

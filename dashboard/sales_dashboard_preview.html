@@ -1,0 +1,176 @@
+
+<style>
+  .db-wrap { padding: 1.5rem 0; font-family: var(--font-sans); }
+  .db-header { display: flex; align-items: center; gap: 10px; margin-bottom: 1.5rem; }
+  .db-title { font-size: 16px; font-weight: 500; color: var(--color-text-primary); }
+  .db-subtitle { font-size: 13px; color: var(--color-text-secondary); margin-top: 2px; }
+  .kpi-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin-bottom: 1.5rem; }
+  .kpi { background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 14px 16px; }
+  .kpi-label { font-size: 12px; color: var(--color-text-secondary); margin-bottom: 6px; display: flex; align-items: center; gap: 5px; }
+  .kpi-value { font-size: 22px; font-weight: 500; color: var(--color-text-primary); }
+  .kpi-delta { font-size: 11px; margin-top: 4px; }
+  .kpi-delta.up { color: #3B6D11; }
+  .kpi-delta.up::before { content: "▲ "; }
+  .charts-grid { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 12px; margin-bottom: 12px; }
+  .chart-card { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 14px 16px; }
+  .chart-label { font-size: 13px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 12px; }
+  .legend { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 10px; font-size: 11px; color: var(--color-text-secondary); }
+  .legend span { display: flex; align-items: center; gap: 4px; }
+  .legend-dot { width: 9px; height: 9px; border-radius: 2px; }
+  .bottom-grid { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 12px; }
+</style>
+
+<div class="db-wrap">
+  <h2 class="sr-only">Dashboard de vendas — prévia do portfólio de Data Engineering de Bruno Nogueira</h2>
+
+  <div class="db-header">
+    <i class="ti ti-chart-bar" style="font-size:20px; color: var(--color-text-secondary);" aria-hidden="true"></i>
+    <div>
+      <div class="db-title">Sales Analytics Dashboard</div>
+      <div class="db-subtitle">Sales Data Pipeline · Março 2026</div>
+    </div>
+  </div>
+
+  <div class="kpi-grid">
+    <div class="kpi">
+      <div class="kpi-label"><i class="ti ti-coin" style="font-size:14px" aria-hidden="true"></i>Receita total</div>
+      <div class="kpi-value">R$ 1.358</div>
+      <div class="kpi-delta up">vs. período anterior</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label"><i class="ti ti-trending-up" style="font-size:14px" aria-hidden="true"></i>Lucro total</div>
+      <div class="kpi-value">R$ 686</div>
+      <div class="kpi-delta up">margem 50.5%</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label"><i class="ti ti-shopping-bag" style="font-size:14px" aria-hidden="true"></i>Volume de vendas</div>
+      <div class="kpi-value">14 un.</div>
+      <div class="kpi-delta up">5 produtos</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label"><i class="ti ti-receipt" style="font-size:14px" aria-hidden="true"></i>Ticket médio</div>
+      <div class="kpi-value">R$ 97,00</div>
+      <div class="kpi-delta up">por unidade</div>
+    </div>
+  </div>
+
+  <div class="charts-grid">
+    <div class="chart-card">
+      <div class="chart-label">Receita por produto</div>
+      <div class="legend">
+        <span><span class="legend-dot" style="background:#378ADD"></span>Feminino</span>
+        <span><span class="legend-dot" style="background:#1D9E75"></span>Masculino</span>
+      </div>
+      <div style="position:relative; height:200px;">
+        <canvas id="chartProd" role="img" aria-label="Gráfico de barras: receita por produto. Conj Legging R$319.80, Oversized R$299.80, Conj Shorts R$239.80, Regata Japonesa R$239.60, Camiseta Dry Fit R$179.70">Receita: Conj Legging 319.80, Oversized 299.80, Conj Shorts 239.80, Regata 239.60, Camiseta 179.70</canvas>
+      </div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-label">Lucro por categoria</div>
+      <div class="legend">
+        <span><span class="legend-dot" style="background:#378ADD; border-radius:50%"></span>Feminino 64%</span>
+        <span><span class="legend-dot" style="background:#1D9E75; border-radius:50%"></span>Masculino 36%</span>
+      </div>
+      <div style="position:relative; height:200px;">
+        <canvas id="chartCat" role="img" aria-label="Gráfico de rosca: lucro feminino 64%, masculino 36%">Feminino: 64%, Masculino: 36%</canvas>
+      </div>
+    </div>
+  </div>
+
+  <div class="bottom-grid">
+    <div class="chart-card">
+      <div class="chart-label">Top produtos — lucro unitário</div>
+      <div style="position:relative; height:180px;">
+        <canvas id="chartTop" role="img" aria-label="Barras horizontais: lucro unitário por produto. Conj Legging R$117.90, Oversized R$102.90, Conj Shorts R$82.90, Regata Japonesa R$20.90, Camiseta Dry Fit R$20.90">Top: Legging 117.90, Oversized 102.90, Shorts 82.90, Regata 20.90, Dry Fit 20.90</canvas>
+      </div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-label">Mix de produtos</div>
+      <div style="display:flex; flex-direction:column; gap:10px; margin-top:8px;">
+        <div>
+          <div style="display:flex; justify-content:space-between; font-size:12px; color:var(--color-text-secondary); margin-bottom:4px;"><span>Conj Legging</span><span>R$ 319,80</span></div>
+          <div style="background:var(--color-background-secondary); border-radius:4px; height:7px;"><div style="background:#378ADD; width:100%; height:7px; border-radius:4px;"></div></div>
+        </div>
+        <div>
+          <div style="display:flex; justify-content:space-between; font-size:12px; color:var(--color-text-secondary); margin-bottom:4px;"><span>Oversized</span><span>R$ 299,80</span></div>
+          <div style="background:var(--color-background-secondary); border-radius:4px; height:7px;"><div style="background:#378ADD; width:94%; height:7px; border-radius:4px;"></div></div>
+        </div>
+        <div>
+          <div style="display:flex; justify-content:space-between; font-size:12px; color:var(--color-text-secondary); margin-bottom:4px;"><span>Conj Shorts</span><span>R$ 239,80</span></div>
+          <div style="background:var(--color-background-secondary); border-radius:4px; height:7px;"><div style="background:#378ADD; width:75%; height:7px; border-radius:4px;"></div></div>
+        </div>
+        <div>
+          <div style="display:flex; justify-content:space-between; font-size:12px; color:var(--color-text-secondary); margin-bottom:4px;"><span>Regata Japonesa</span><span>R$ 239,60</span></div>
+          <div style="background:var(--color-background-secondary); border-radius:4px; height:7px;"><div style="background:#1D9E75; width:75%; height:7px; border-radius:4px;"></div></div>
+        </div>
+        <div>
+          <div style="display:flex; justify-content:space-between; font-size:12px; color:var(--color-text-secondary); margin-bottom:4px;"><span>Camiseta Dry Fit</span><span>R$ 179,70</span></div>
+          <div style="background:var(--color-background-secondary); border-radius:4px; height:7px;"><div style="background:#1D9E75; width:56%; height:7px; border-radius:4px;"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+const isDark = matchMedia('(prefers-color-scheme: dark)').matches;
+const textColor = isDark ? 'rgba(255,255,255,0.5)' : 'rgba(0,0,0,0.4)';
+const gridColor = isDark ? 'rgba(255,255,255,0.07)' : 'rgba(0,0,0,0.06)';
+
+new Chart(document.getElementById('chartProd'), {
+  type: 'bar',
+  data: {
+    labels: ['Conj Legging','Oversized','Conj Shorts','Regata Jap.','Camiseta DF'],
+    datasets: [{
+      label: 'Receita (R$)',
+      data: [319.80, 299.80, 239.80, 239.60, 179.70],
+      backgroundColor: ['#378ADD','#378ADD','#378ADD','#1D9E75','#1D9E75'],
+      borderRadius: 4,
+      borderSkipped: false
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false }, tooltip: { callbacks: { label: c => 'R$ ' + c.parsed.y.toFixed(2) } } },
+    scales: {
+      x: { ticks: { color: textColor, font: { size: 11 }, autoSkip: false, maxRotation: 20 }, grid: { display: false }, border: { display: false } },
+      y: { ticks: { color: textColor, font: { size: 11 }, callback: v => 'R$ ' + v }, grid: { color: gridColor }, border: { display: false } }
+    }
+  }
+});
+
+new Chart(document.getElementById('chartCat'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Feminino','Masculino'],
+    datasets: [{ data: [439.50, 146.30], backgroundColor: ['#378ADD','#1D9E75'], borderWidth: 0, hoverOffset: 4 }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false, cutout: '65%',
+    plugins: { legend: { display: false }, tooltip: { callbacks: { label: c => c.label + ': R$ ' + c.parsed.toFixed(2) } } }
+  }
+});
+
+new Chart(document.getElementById('chartTop'), {
+  type: 'bar',
+  indexAxis: 'y',
+  data: {
+    labels: ['Conj Legging','Oversized','Conj Shorts','Regata Jap.','Camiseta DF'],
+    datasets: [{
+      label: 'Lucro unit. (R$)',
+      data: [117.90, 102.90, 82.90, 20.90, 20.90],
+      backgroundColor: ['#378ADD','#378ADD','#378ADD','#1D9E75','#1D9E75'],
+      borderRadius: 4, borderSkipped: false
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false }, tooltip: { callbacks: { label: c => 'R$ ' + c.parsed.x.toFixed(2) } } },
+    scales: {
+      x: { ticks: { color: textColor, font: { size: 11 }, callback: v => 'R$ ' + v }, grid: { color: gridColor }, border: { display: false } },
+      y: { ticks: { color: textColor, font: { size: 11 } }, grid: { display: false }, border: { display: false } }
+    }
+  }
+});
+</script>
