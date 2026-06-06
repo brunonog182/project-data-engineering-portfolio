@@ -5,7 +5,7 @@ services:
     env_file:
       - .env
     ports:
-      - "127.0.0.1:porta:porta"  # ← Mapeia para a porta 5433 no host
+      - "127.0.0.1:porta:porta"  # ← Mapeia para a porta do host
     volumes:
       - postgres_data:/var/lib/postgresql/data  # ← Mantém assim para v16
 
