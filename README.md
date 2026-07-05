@@ -143,7 +143,7 @@ project-data-engineering-portfolio/
 ├── docker/                # Docker container configurations
 │   └── docker-compose.yml
 ├── etl/                   # Python scripts for Extraction & Loading
-│   └── load_produtos.py
+│   └── load_products.py
 ├── sql/                   # SQL scripts for table creation
 │   └── create_tables.sql
 ├── requirements.txt       # Python dependencies
